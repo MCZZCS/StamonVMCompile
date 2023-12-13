@@ -4,7 +4,7 @@ import io.github.svm.exe.core.Executor;
 import io.github.svm.exe.core.LoaderStackFrame;
 import io.github.svm.exe.core.Script;
 import io.github.svm.exe.core.StackFrame;
-import io.github.svm.exe.lib.Function;
+import io.github.svm.exe.obj.SVMMethod;
 import io.github.svm.util.VMRuntimeException;
 
 import java.util.*;
@@ -15,7 +15,7 @@ public class ThreadTask {
     Thread thread;
     ThreadManager.Status status;
     ArrayList<Script> scripts;
-    Function function;
+    SVMMethod SVMMethod;
     Deque<StackFrame> stackFrames;
 
     public ThreadTask(String name){
@@ -42,8 +42,8 @@ public class ThreadTask {
         return executor.getExecuting().getFilename();
     }
 
-    public void setFunction(Function function) {
-        this.function = function;
+    public void setFunction(SVMMethod SVMMethod) {
+        this.SVMMethod = SVMMethod;
     }
 
     public void setStatus(ThreadManager.Status status) {
@@ -77,13 +77,13 @@ public class ThreadTask {
     }
 
     public void start(){
-        if(function==null) {
+        if(SVMMethod ==null) {
             this.executor = new Executor(scripts.get(0), this);
             this.status = ThreadManager.Status.RUNNING;
             this.thread.start();
         }else {
             this.status = ThreadManager.Status.RUNNING;
-            this.executor = new Executor(new Script(function.getLib(), function.getLib()+".exf",function.getBcs()),this);
+            this.executor = new Executor(new Script(SVMMethod.getLib(), SVMMethod.getLib()+".exf", SVMMethod.getBcs()),this);
             this.thread.start();
         }
     }

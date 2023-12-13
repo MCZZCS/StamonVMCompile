@@ -1,17 +1,16 @@
-package io.github.svm.exe.lib;
+package io.github.svm.exe.obj;
 
 import io.github.svm.compile.ir.ASTNode;
-import io.github.svm.exe.obj.SVMValue;
 
 import java.util.ArrayList;
 
-public class Function extends SVMValue {
+public class SVMMethod extends SVMValue {
     String lib;
     String name;
     String filename;
     ArrayList<ASTNode> bcs;
 
-    public Function(String lib, String name, ArrayList<ASTNode> bcs,String filename){
+    public SVMMethod(String lib, String name, ArrayList<ASTNode> bcs, String filename){
         this.lib = lib;
         this.name = name;
         this.bcs = bcs;

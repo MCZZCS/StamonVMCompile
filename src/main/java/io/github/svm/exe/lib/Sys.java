@@ -154,14 +154,14 @@ public class Sys implements RuntimeLibrary{
         public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
             SVMObject name = vars.get(0),func = vars.get(1);
             ThreadTask task = new ThreadTask(name.getData());
-            Function function = null;
-            for(Function f:ThreadManager.getFunctions()) {
+            SVMMethod SVMMethod = null;
+            for(SVMMethod f:ThreadManager.getFunctions()) {
                 if(f.getLib().equals(executor.getExecuting().getInvoke_name())){
-                    if(f.getName().equals(func.getData())) function = f;
+                    if(f.getName().equals(func.getData())) SVMMethod = f;
                 }
             }
-            if(function == null)throw new VMRuntimeException("Not found function:"+func.getData(),executor.getThread());
-            task.setFunction(function);
+            if(SVMMethod == null)throw new VMRuntimeException("Not found function:"+func.getData(),executor.getThread());
+            task.setFunction(SVMMethod);
             task.start();
             ThreadManager.addThread(task);
             return new SVMString(task.getName());

@@ -1,10 +1,10 @@
 package io.github.svm.exe.core;
 
-import io.github.svm.exe.lib.Function;
+import io.github.svm.exe.obj.SVMMethod;
 
 public class RuntimeStackFrame extends StackFrame{
 
-    public RuntimeStackFrame(Function function) {
-        super(function);
+    public RuntimeStackFrame(SVMMethod SVMMethod) {
+        super(SVMMethod);
     }
 }

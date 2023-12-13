@@ -3,6 +3,6 @@ package io.github.svm.exe.obj;
 public abstract class SVMObject {
     public abstract String getData();
     public abstract int getType();
-    public static final int STRING = 0,INTEGER = 1,DOUBLE = 2,BOOLEAN = 3,NULL = 4,VALUE = 5,ARRAY = 6;
+    public static final int STRING = 0,INTEGER = 1,DOUBLE = 2,BOOLEAN = 3,NULL = 4,VALUE = 5,ARRAY = 6,CLASS = 7,METHOD = 8;
     Double a = 4.9E-324;
 }

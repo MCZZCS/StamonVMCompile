@@ -4,7 +4,7 @@ import io.github.svm.compile.ir.ASTNode;
 import io.github.svm.exe.core.Executor;
 import io.github.svm.exe.core.RuntimeStackFrame;
 import io.github.svm.exe.core.StackFrame;
-import io.github.svm.exe.lib.Function;
+import io.github.svm.exe.obj.SVMMethod;
 import io.github.svm.exe.lib.RuntimeLibrary;
 import io.github.svm.exe.thread.ThreadManager;
 import io.github.svm.util.ReturnException;
@@ -58,7 +58,7 @@ public class InvokeASTNode extends StructNode {
                             }catch (VMRuntimeException e){
                                 executor.getThread().pushCallStackFrame(
                                         new RuntimeStackFrame(
-                                                new Function(lib,function,new ArrayList<>(),
+                                                new SVMMethod(lib,function,new ArrayList<>(),
                                                         executor.getThread()
                                                                 .getCallStackPeek()
                                                                 .getFunction()
@@ -71,12 +71,12 @@ public class InvokeASTNode extends StructNode {
                     throw new VMRuntimeException("No such function:" + function, executor.getThread(), VMRuntimeException.EnumVMException.NO_SUCH_FUNCTION_EXCEPTION);
                 }
             }
-            for (Function function1 : ThreadManager.getFunctions()) {
-                if (function1.getLib().equals(lib)) {
-                    if (function1.getName().equals(function)) {
-                        executor.getThread().pushCallStackFrame(new StackFrame(function1));
+            for (SVMMethod SVMMethod1 : ThreadManager.getFunctions()) {
+                if (SVMMethod1.getLib().equals(lib)) {
+                    if (SVMMethod1.getName().equals(function)) {
+                        executor.getThread().pushCallStackFrame(new StackFrame(SVMMethod1));
                         for (ASTNode bc : var) bc.executor(executor);
-                        for (ASTNode bc : function1.getBcs()) {
+                        for (ASTNode bc : SVMMethod1.getBcs()) {
                             bc.executor(executor);
                         }
                         executor.getThread().popCallStackFrame();

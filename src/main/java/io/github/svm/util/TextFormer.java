@@ -19,7 +19,7 @@ public class TextFormer {
                     need.lr.s=')' expected.
                     need.sem.marks='"' expected.
                     need.sem.call='.'expected.
-                    miss.function.body=Missing function body.
+                    miss.SVMMethod.body=Missing SVMMethod body.
                     miss.statement.body=Missing statement body.
                     type.not.valid=Type name is not valid.
                     unable.resolve.symbols=Unable to resolve symbols.
@@ -28,10 +28,10 @@ public class TextFormer {
                     illegal.expression.comb=Illegal combination of expressions.
                     illegal.string.escape=Illegal escape character in string literal.
                     illegal.key=Illegal keywords.
-                    outside.function.return=Return outside function.
+                    outside.SVMMethod.return=Return outside SVMMethod.
                     outside.loop.back=Back outside loop
                                     
-                    no.such.function=No such function
+                    no.such.SVMMethod=No such SVMMethod
                     op.type=The operation type is incorrect.
                                     
                     command.help=Print help info about openex commands.

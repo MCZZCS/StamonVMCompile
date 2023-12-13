@@ -3,7 +3,7 @@ package io.github.svm.compile.parser;
 import io.github.svm.compile.ir.ASTNode;
 import io.github.svm.compile.ir.struct.LoadVarNode;
 import io.github.svm.compile.ir.struct.NulASTNode;
-import io.github.svm.exe.lib.Function;
+import io.github.svm.exe.obj.SVMMethod;
 import io.github.svm.exe.thread.ThreadManager;
 import io.github.svm.compile.Compiler;
 import io.github.svm.compile.Token;
@@ -76,7 +76,7 @@ public class FunctionParser implements BaseParser{
             bcs.add(bp.eval(parser,compiler,tos));
         }
 
-        ThreadManager.getFunctions().add(new Function(parser.getFilename().split("\\.")[0],function_name,bcs, parser.filename));
+        ThreadManager.getFunctions().add(new SVMMethod(parser.getFilename().split("\\.")[0],function_name,bcs, parser.filename));
         return new NulASTNode();
     }
 }

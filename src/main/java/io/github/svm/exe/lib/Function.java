@@ -1,11 +1,11 @@
 package io.github.svm.exe.lib;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.exe.obj.ExValue;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.exe.obj.SVMValue;
 
 import java.util.ArrayList;
 
-public class Function extends ExValue {
+public class Function extends SVMValue {
     String lib;
     String name;
     String filename;

@@ -1,7 +1,7 @@
 package io.github.svm.exe.core;
 
 import io.github.svm.exe.lib.Function;
-import io.github.svm.exe.obj.ExValue;
+import io.github.svm.exe.obj.SVMValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class LoaderStackFrame extends StackFrame{
     }
 
     @Override
-    public List<ExValue> getValues() {
+    public List<SVMValue> getValues() {
         return executor.getExecuting().getValues();
     }
 }

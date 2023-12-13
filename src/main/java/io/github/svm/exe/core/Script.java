@@ -1,14 +1,14 @@
 package io.github.svm.exe.core;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.exe.obj.ExValue;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.exe.obj.SVMValue;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Script {
     List<ASTNode> bcs;
-    List<ExValue> values;
+    List<SVMValue> values;
     String invoke_name;
     String filename;
 
@@ -19,7 +19,7 @@ public class Script {
         this.values = new LinkedList<>();
     }
 
-    public List<ExValue> getValues() {
+    public List<SVMValue> getValues() {
         return values;
     }
 

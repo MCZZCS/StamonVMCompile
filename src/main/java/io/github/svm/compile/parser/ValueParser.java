@@ -1,12 +1,12 @@
 package io.github.svm.compile.parser;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.opcode.PushNode;
-import io.github.svm.compile.code.struct.GroupASTNode;
-import io.github.svm.compile.code.struct.LoadArrayNode;
-import io.github.svm.compile.code.struct.LoadVarNode;
-import io.github.svm.exe.obj.ExBool;
-import io.github.svm.exe.obj.ExNull;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.opcode.PushNode;
+import io.github.svm.compile.ir.struct.GroupASTNode;
+import io.github.svm.compile.ir.struct.LoadArrayNode;
+import io.github.svm.compile.ir.struct.LoadVarNode;
+import io.github.svm.exe.obj.SVMBool;
+import io.github.svm.exe.obj.SVMNull;
 import io.github.svm.compile.Token;
 import io.github.svm.compile.ExpressionParsing;
 import io.github.svm.util.CompileException;
@@ -50,7 +50,7 @@ public class ValueParser implements BaseParser {
         List<ASTNode> var_bc = new LinkedList<>();
 
         if (td.getType() == Token.END) {
-            var_bc.add(new PushNode(new ExNull()));
+            var_bc.add(new PushNode(new SVMNull()));
         } else {
             if (!(td.getType() == Token.SEM))
                 throw new CompileException("Unable to resolve symbols.", name, parser.filename,parser);
@@ -58,13 +58,13 @@ public class ValueParser implements BaseParser {
 
             if (td.getType() == Token.KEY) {
                 switch (td.getData()) {
-                    case "true" -> var_bc.add(new PushNode(new ExBool(true)));
-                    case "false" -> var_bc.add(new PushNode(new ExBool(false)));
-                    case "null" -> var_bc.add(new PushNode(new ExNull()));
+                    case "true" -> var_bc.add(new PushNode(new SVMBool(true)));
+                    case "false" -> var_bc.add(new PushNode(new SVMBool(false)));
+                    case "null" -> var_bc.add(new PushNode(new SVMNull()));
                     default -> throw new CompileException("Unable to resolve symbols.", td, parser.filename,parser);
                 }
             } else if (td.getType() == Token.END) {
-                var_bc.add(new PushNode(new ExNull()));
+                var_bc.add(new PushNode(new SVMNull()));
             } else if (td.getType() == Token.LP) {
                 boolean isend = true, isf = true;
                 List<GroupASTNode> b = new LinkedList<>();
@@ -125,7 +125,7 @@ public class ValueParser implements BaseParser {
         List<ASTNode> var_bc = new LinkedList<>();
 
         if (td.getType() == Token.END) {
-            var_bc.add(new PushNode(new ExNull()));
+            var_bc.add(new PushNode(new SVMNull()));
         } else {
             if (!(td.getType() == Token.SEM))
                 throw new CompileException("Unable to resolve symbols.", name, parser.filename,parser);
@@ -133,13 +133,13 @@ public class ValueParser implements BaseParser {
 
             if (td.getType() == Token.KEY) {
                 switch (td.getData()) {
-                    case "true" -> var_bc.add(new PushNode(new ExBool(true)));
-                    case "false" -> var_bc.add(new PushNode(new ExBool(false)));
-                    case "null" -> var_bc.add(new PushNode(new ExNull()));
+                    case "true" -> var_bc.add(new PushNode(new SVMBool(true)));
+                    case "false" -> var_bc.add(new PushNode(new SVMBool(false)));
+                    case "null" -> var_bc.add(new PushNode(new SVMNull()));
                     default -> throw new CompileException("Unable to resolve symbols.", td, parser.filename,parser);
                 }
             } else if (td.getType() == Token.END) {
-                var_bc.add(new PushNode(new ExNull()));
+                var_bc.add(new PushNode(new SVMNull()));
             } else if (td.getType() == Token.LP) {
                 boolean isend = true, isf = true;
                 List<GroupASTNode> b = new LinkedList<>();

@@ -1,10 +1,10 @@
 package io.github.svm.exe.lib;
 
 import io.github.svm.exe.core.Executor;
-import io.github.svm.exe.obj.ExBool;
-import io.github.svm.exe.obj.ExNull;
-import io.github.svm.exe.obj.ExObject;
-import io.github.svm.exe.obj.ExString;
+import io.github.svm.exe.obj.SVMBool;
+import io.github.svm.exe.obj.SVMNull;
+import io.github.svm.exe.obj.SVMObject;
+import io.github.svm.exe.obj.SVMString;
 import io.github.svm.util.VMRuntimeException;
 
 import java.io.*;
@@ -37,9 +37,9 @@ public class File implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject name = vars.get(0);
-            return new ExBool(new java.io.File(name.getData()).exists());
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject name = vars.get(0);
+            return new SVMBool(new java.io.File(name.getData()).exists());
         }
 
         @Override
@@ -55,14 +55,14 @@ public class File implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject name = vars.get(0);
-            ExObject data = vars.get(1);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject name = vars.get(0);
+            SVMObject data = vars.get(1);
             try(BufferedWriter writer = new BufferedWriter(new FileWriter(name.getData()))){
                 writer.write(data.getData());
-                return new ExBool(true);
+                return new SVMBool(true);
             }catch (IOException e){
-                return new ExBool(false);
+                return new SVMBool(false);
             }
         }
 
@@ -79,15 +79,15 @@ public class File implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject obj = vars.get(0);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject obj = vars.get(0);
             StringBuilder sb = new StringBuilder();
             String line;
             try(BufferedReader reader = new BufferedReader(new FileReader(obj.getData()))){
                 while ((line = reader.readLine())!=null)sb.append(line).append("\n");
-                return new ExString(sb.toString());
+                return new SVMString(sb.toString());
             }catch (FileNotFoundException e){
-                return new ExNull();
+                return new SVMNull();
             }catch (IOException e){
                 throw new VMRuntimeException("[FILE]:读取文件时发生错误",executor.getThread(), VMRuntimeException.EnumVMException.FILE_IO_EXCEPTION);
             }

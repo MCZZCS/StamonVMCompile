@@ -1,14 +1,14 @@
 package io.github.svm.compile.stamon;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.opcode.OpNode;
-import io.github.svm.compile.code.opcode.PushNode;
-import io.github.svm.compile.code.struct.GroupASTNode;
-import io.github.svm.compile.code.struct.InvokeASTNode;
-import io.github.svm.compile.stamon.ir.ByteCode;
-import io.github.svm.compile.stamon.ir.CallCode;
-import io.github.svm.compile.stamon.ir.OpCode;
-import io.github.svm.compile.stamon.ir.PushCode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.opcode.OpNode;
+import io.github.svm.compile.ir.opcode.PushNode;
+import io.github.svm.compile.ir.struct.GroupASTNode;
+import io.github.svm.compile.ir.struct.InvokeASTNode;
+import io.github.svm.compile.stamon.bc.ByteCode;
+import io.github.svm.compile.stamon.bc.CallCode;
+import io.github.svm.compile.stamon.bc.OpCode;
+import io.github.svm.compile.stamon.bc.PushCode;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

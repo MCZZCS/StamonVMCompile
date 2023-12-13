@@ -1,8 +1,8 @@
 package io.github.svm.compile.parser;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.struct.LoadVarNode;
-import io.github.svm.compile.code.struct.NulASTNode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.struct.LoadVarNode;
+import io.github.svm.compile.ir.struct.NulASTNode;
 import io.github.svm.exe.lib.Function;
 import io.github.svm.exe.thread.ThreadManager;
 import io.github.svm.compile.Compiler;

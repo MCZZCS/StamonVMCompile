@@ -1,16 +1,16 @@
 package io.github.svm.compile.stamon.table;
 
-import io.github.svm.exe.obj.ExDouble;
-import io.github.svm.exe.obj.ExObject;
+import io.github.svm.exe.obj.SVMDouble;
+import io.github.svm.exe.obj.SVMObject;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ConstDouble extends Const{
-    ExDouble exDouble;
+    SVMDouble SVMDouble;
     int id;
-    public ConstDouble(int id,ExDouble exDouble){
-        this.exDouble = exDouble;
+    public ConstDouble(int id, SVMDouble SVMDouble){
+        this.SVMDouble = SVMDouble;
         this.id = id;
     }
     @Override
@@ -18,12 +18,12 @@ public class ConstDouble extends Const{
         outputStream.writeInt(id);
         outputStream.writeByte(0x04);
         outputStream.writeInt(0x04);
-        outputStream.writeDouble(Double.parseDouble(exDouble.getData()));
+        outputStream.writeDouble(Double.parseDouble(SVMDouble.getData()));
     }
 
     @Override
-    public ExObject getObject() {
-        return exDouble;
+    public SVMObject getObject() {
+        return SVMDouble;
     }
 
     @Override

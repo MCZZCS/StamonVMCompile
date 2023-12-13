@@ -1,15 +1,15 @@
 package io.github.svm.compile.stamon.table;
 
-import io.github.svm.exe.obj.ExObject;
-import io.github.svm.exe.obj.ExString;
+import io.github.svm.exe.obj.SVMObject;
+import io.github.svm.exe.obj.SVMString;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ConstString extends Const{
-    ExString string;
+    SVMString string;
     int id;
-    public ConstString(int id,ExString string){
+    public ConstString(int id, SVMString string){
         this.id = id;
         this.string = string;
     }
@@ -23,7 +23,7 @@ public class ConstString extends Const{
     }
 
     @Override
-    public ExObject getObject() {
+    public SVMObject getObject() {
         return string;
     }
 

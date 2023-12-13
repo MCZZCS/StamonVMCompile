@@ -1,29 +1,29 @@
 package io.github.svm.compile.stamon.table;
 
-import io.github.svm.exe.obj.ExInt;
-import io.github.svm.exe.obj.ExObject;
+import io.github.svm.exe.obj.SVMInt;
+import io.github.svm.exe.obj.SVMObject;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ConstInteger extends Const{
-    ExInt exInt;
+    SVMInt SVMInt;
     int id;
-    public ConstInteger(int id,ExInt exInt){
+    public ConstInteger(int id, SVMInt SVMInt){
         this.id = id;
-        this.exInt = exInt;
+        this.SVMInt = SVMInt;
     }
     @Override
     public void dump(DataOutputStream outputStream,ConstTable table) throws IOException {
         outputStream.writeInt(id);
         outputStream.writeByte(0x02);
         outputStream.writeInt(0x02);
-        outputStream.writeShort(Integer.parseInt(exInt.getData()));
+        outputStream.writeShort(Integer.parseInt(SVMInt.getData()));
     }
 
     @Override
-    public ExObject getObject() {
-        return exInt;
+    public SVMObject getObject() {
+        return SVMInt;
     }
 
     @Override

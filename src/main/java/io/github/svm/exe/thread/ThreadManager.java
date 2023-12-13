@@ -1,13 +1,13 @@
 package io.github.svm.exe.thread;
 
 import io.github.svm.exe.lib.Function;
-import io.github.svm.exe.obj.ExValue;
+import io.github.svm.exe.obj.SVMValue;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ThreadManager {
-    static List<ExValue> values = new LinkedList<>();
+    static List<SVMValue> values = new LinkedList<>();
     static List<Function> functions = new LinkedList<>();
     static ArrayList<ThreadTask> tasks = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class ThreadManager {
         return functions;
     }
 
-    public static List<ExValue> getValues() {
+    public static List<SVMValue> getValues() {
         return values;
     }
 

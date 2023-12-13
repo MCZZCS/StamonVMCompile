@@ -1,7 +1,7 @@
 package io.github.svm.compile.parser;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.struct.NulASTNode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.struct.NulASTNode;
 import io.github.svm.compile.Compiler;
 import io.github.svm.compile.Token;
 import io.github.svm.util.CompileException;

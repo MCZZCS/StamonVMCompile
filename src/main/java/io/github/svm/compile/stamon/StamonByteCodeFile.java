@@ -1,7 +1,7 @@
 package io.github.svm.compile.stamon;
 
 import io.github.svm.compile.Compiler;
-import io.github.svm.compile.stamon.ir.ByteCode;
+import io.github.svm.compile.stamon.bc.ByteCode;
 import io.github.svm.compile.stamon.table.ConstTable;
 import io.github.svm.util.CompileException;
 

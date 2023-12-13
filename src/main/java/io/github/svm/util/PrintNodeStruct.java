@@ -1,6 +1,6 @@
 package io.github.svm.util;
 
-import io.github.svm.compile.code.ASTNode;
+import io.github.svm.compile.ir.ASTNode;
 
 import java.util.List;
 

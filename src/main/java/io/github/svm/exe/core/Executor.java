@@ -1,8 +1,8 @@
 package io.github.svm.exe.core;
 
-import io.github.svm.compile.code.ASTNode;
+import io.github.svm.compile.ir.ASTNode;
 import io.github.svm.exe.lib.RuntimeLibrary;
-import io.github.svm.exe.obj.ExObject;
+import io.github.svm.exe.obj.SVMObject;
 import io.github.svm.exe.thread.ThreadTask;
 import io.github.svm.util.VMRuntimeException;
 
@@ -22,13 +22,13 @@ public class Executor {
         return thread;
     }
 
-    public void push(ExObject obj){
+    public void push(SVMObject obj){
         getThread().getCallStackPeek().push(obj);
     }
-    public ExObject pop(){
+    public SVMObject pop(){
         return getThread().getCallStackPeek().pop();
     }
-    public ExObject peek(){
+    public SVMObject peek(){
         return getThread().getCallStackPeek().op_stack.peek();
     }
 

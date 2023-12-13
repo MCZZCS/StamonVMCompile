@@ -1,15 +1,15 @@
 package io.github.svm.exe.core;
 
 import io.github.svm.exe.lib.Function;
-import io.github.svm.exe.obj.ExObject;
-import io.github.svm.exe.obj.ExValue;
+import io.github.svm.exe.obj.SVMObject;
+import io.github.svm.exe.obj.SVMValue;
 
 import java.util.*;
 
 public class StackFrame {
     Function function;
-    ArrayList<ExValue> pre_value_table;
-    Deque<ExObject> op_stack;
+    ArrayList<SVMValue> pre_value_table;
+    Deque<SVMObject> op_stack;
 
     public StackFrame(Function function){
         this.function = function;
@@ -17,19 +17,19 @@ public class StackFrame {
         this.op_stack = new LinkedList<>();
     }
 
-    public void push(ExObject object){
+    public void push(SVMObject object){
         this.op_stack.push(object);
     }
 
-    public ExObject pop(){
+    public SVMObject pop(){
         return this.op_stack.pop();
     }
 
-    public Deque<ExObject> getOpStack() {
+    public Deque<SVMObject> getOpStack() {
         return op_stack;
     }
 
-    public List<ExValue> getValues(){
+    public List<SVMValue> getValues(){
         return pre_value_table;
     }
 

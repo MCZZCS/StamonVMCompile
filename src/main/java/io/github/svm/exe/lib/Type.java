@@ -36,19 +36,19 @@ public class Type implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject object = vars.get(0);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject object = vars.get(0);
 
             String type = "unknown";
-            if(object instanceof ExVarName){
-                ExValue buf = null;
-                for(ExValue v: ThreadManager.getValues()){
+            if(object instanceof SVMVarName){
+                SVMValue buf = null;
+                for(SVMValue v: ThreadManager.getValues()){
                     if(v.getData().equals(object.getData())){
                         buf = v;
                         break;
                     }
                 }
-                for(ExValue v:executor.getThread().getCallStackPeek().getValues()){
+                for(SVMValue v:executor.getThread().getCallStackPeek().getValues()){
                     if(v.getData().equals(object.getData())){
                         buf = v;
                         break;
@@ -56,21 +56,21 @@ public class Type implements RuntimeLibrary{
                 }
                 if(buf == null)throw new VMRuntimeException("找不到指定变量:"+object.getData(),executor.getThread(), VMRuntimeException.EnumVMException.NO_SUCH_VALUE_ERROR);
 
-                if(buf.getType()==ExObject.ARRAY){
+                if(buf.getType()== SVMObject.ARRAY){
                     object = buf;
                 }else object = buf.getVar();
             }
 
             switch (object.getType()){
-                case ExObject.BOOLEAN -> type = "BOOL";
-                case ExObject.STRING -> type = "STRING";
-                case ExObject.INTEGER -> type = "INT";
-                case ExObject.DOUBLE -> type = "DOUBLE";
-                case ExObject.ARRAY -> type = "ARRAY";
-                case ExObject.NULL -> type = "NULL";
+                case SVMObject.BOOLEAN -> type = "BOOL";
+                case SVMObject.STRING -> type = "STRING";
+                case SVMObject.INTEGER -> type = "INT";
+                case SVMObject.DOUBLE -> type = "DOUBLE";
+                case SVMObject.ARRAY -> type = "ARRAY";
+                case SVMObject.NULL -> type = "NULL";
             }
 
-            return new ExString(type);
+            return new SVMString(type);
         }
 
         @Override
@@ -85,8 +85,8 @@ public class Type implements RuntimeLibrary{
             return 1;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            return new ExString(vars.get(0).getData());
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            return new SVMString(vars.get(0).getData());
         }
         @Override
         public String getName() {
@@ -99,16 +99,16 @@ public class Type implements RuntimeLibrary{
             return 1;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
             try {
-                ExObject o = vars.get(0);
-                if (o.getType() == ExObject.ARRAY)
+                SVMObject o = vars.get(0);
+                if (o.getType() == SVMObject.ARRAY)
                     throw new VMRuntimeException("Cannot convert an array type to a double type.", executor.getThread(), VMRuntimeException.EnumVMException.TYPE_CAST_EXCEPTION);
-                if (o.getType() == ExObject.BOOLEAN) {
-                    if (o.getData().equals("true")) return new ExDouble(1.0);
-                    else return new ExDouble(0.0);
+                if (o.getType() == SVMObject.BOOLEAN) {
+                    if (o.getData().equals("true")) return new SVMDouble(1.0);
+                    else return new SVMDouble(0.0);
                 }
-                return new ExDouble(Double.parseDouble(o.getData()));
+                return new SVMDouble(Double.parseDouble(o.getData()));
             }catch (Exception e){
                 throw new VMRuntimeException(e.getLocalizedMessage(),executor.getThread(), VMRuntimeException.EnumVMException.VM_ERROR);
             }
@@ -124,16 +124,16 @@ public class Type implements RuntimeLibrary{
             return 1;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
             try {
-                ExObject o = vars.get(0);
-                if (o.getType() == ExObject.ARRAY)
+                SVMObject o = vars.get(0);
+                if (o.getType() == SVMObject.ARRAY)
                     throw new VMRuntimeException("Cannot convert an array type to a integer type.", executor.getThread(), VMRuntimeException.EnumVMException.TYPE_CAST_EXCEPTION);
-                if (o.getType() == ExObject.BOOLEAN) {
-                    if (o.getData().equals("true")) return new ExInt(1);
-                    else return new ExInt(0);
+                if (o.getType() == SVMObject.BOOLEAN) {
+                    if (o.getData().equals("true")) return new SVMInt(1);
+                    else return new SVMInt(0);
                 }
-                return new ExInt(Integer.parseInt(o.getData()));
+                return new SVMInt(Integer.parseInt(o.getData()));
             }catch (Exception e){
                 throw new VMRuntimeException(e.getLocalizedMessage(),executor.getThread(), VMRuntimeException.EnumVMException.VM_ERROR);
             }
@@ -150,22 +150,22 @@ public class Type implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
             try {
-                ExObject o = vars.get(0);
-                if (o.getType() == ExObject.ARRAY)
+                SVMObject o = vars.get(0);
+                if (o.getType() == SVMObject.ARRAY)
                     throw new VMRuntimeException("Cannot convert an array type to a double type.", executor.getThread(), VMRuntimeException.EnumVMException.TYPE_CAST_EXCEPTION);
 
-                if (o.getType() == ExObject.DOUBLE) {
+                if (o.getType() == SVMObject.DOUBLE) {
                     double d = Double.parseDouble(o.getData());
-                    if (d > 0) return new ExBool(true);
-                    else return new ExBool(false);
-                } else if (o.getType() == ExObject.INTEGER) {
+                    if (d > 0) return new SVMBool(true);
+                    else return new SVMBool(false);
+                } else if (o.getType() == SVMObject.INTEGER) {
                     int i = Integer.parseInt(o.getData());
-                    if (i > 0) return new ExBool(true);
-                    else return new ExBool(false);
+                    if (i > 0) return new SVMBool(true);
+                    else return new SVMBool(false);
                 }
-                return new ExBool(Boolean.parseBoolean(o.getData()));
+                return new SVMBool(Boolean.parseBoolean(o.getData()));
             } catch (Exception e) {
                 throw new VMRuntimeException(e.getLocalizedMessage(), executor.getThread(), VMRuntimeException.EnumVMException.VM_ERROR);
             }

@@ -1,6 +1,6 @@
 package io.github.svm.compile;
 
-import io.github.svm.compile.code.struct.GroupASTNode;
+import io.github.svm.compile.ir.struct.GroupASTNode;
 
 public class TokenX extends Token {
     GroupASTNode bc;

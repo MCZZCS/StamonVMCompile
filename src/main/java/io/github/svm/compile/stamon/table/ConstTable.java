@@ -27,7 +27,7 @@ public class ConstTable {
         this.size = 0;
     }
 
-    public int checkConst(ExObject exInt, int type) {
+    public int checkConst(SVMObject exInt, int type) {
         for (Const c : consts) {
             if (c.getObject().getType() == type) {
                 if (c.getObject().getData().equals(exInt.getData())) {
@@ -38,45 +38,45 @@ public class ConstTable {
         return -1;
     }
 
-    public int poolObject(ExObject object){
+    public int poolObject(SVMObject object){
         int type = object.getType();
         return switch (type){
-            case ExObject.INTEGER -> poolInt((ExInt) object);
-            case ExObject.BOOLEAN -> poolBoolean((ExBool) object);
-            case ExObject.DOUBLE -> poolDouble((ExDouble) object);
-            case ExObject.STRING -> poolString((ExString) object);
-            case ExObject.NULL -> poolNull((ExNull) object);
+            case SVMObject.INTEGER -> poolInt((SVMInt) object);
+            case SVMObject.BOOLEAN -> poolBoolean((SVMBool) object);
+            case SVMObject.DOUBLE -> poolDouble((SVMDouble) object);
+            case SVMObject.STRING -> poolString((SVMString) object);
+            case SVMObject.NULL -> poolNull((SVMNull) object);
             default -> -1;
         };
     }
 
-    public int poolBoolean(ExBool bool){
+    public int poolBoolean(SVMBool bool){
         int ret;
-        if((ret = checkConst(bool,ExObject.INTEGER))!=-1){
+        if((ret = checkConst(bool, SVMObject.INTEGER))!=-1){
             return ret;
         }else {
             ret = index;
-            consts.add(new ConstInteger(index, new ExInt(Boolean.parseBoolean(bool.getData()) ? 1 : 0)));
+            consts.add(new ConstInteger(index, new SVMInt(Boolean.parseBoolean(bool.getData()) ? 1 : 0)));
             index++;
         }
         return ret;
     }
 
-    public int poolInt(ExInt exInt){
+    public int poolInt(SVMInt SVMInt){
         int ret;
-        if((ret = checkConst(exInt,ExObject.INTEGER))!=-1){
+        if((ret = checkConst(SVMInt, SVMObject.INTEGER))!=-1){
             return ret;
         }else {
             ret = index;
-            consts.add(new ConstInteger(index, exInt));
+            consts.add(new ConstInteger(index, SVMInt));
             index++;
         }
         return ret;
     }
 
-    public int poolNull(ExNull exNull){
+    public int poolNull(SVMNull SVMNull){
         int ret;
-        if((ret = checkConst(exNull,ExObject.NULL))!=-1){
+        if((ret = checkConst(SVMNull, SVMObject.NULL))!=-1){
             return ret;
         }else {
             ret = index;
@@ -86,21 +86,21 @@ public class ConstTable {
         return ret;
     }
 
-    public int poolDouble(ExDouble exDouble){
+    public int poolDouble(SVMDouble SVMDouble){
         int ret;
-        if((ret = checkConst(exDouble,ExObject.DOUBLE))!=-1){
+        if((ret = checkConst(SVMDouble, SVMObject.DOUBLE))!=-1){
             return ret;
         }else {
             ret = index;
-            consts.add(new ConstDouble(index, exDouble));
+            consts.add(new ConstDouble(index, SVMDouble));
             index++;
         }
         return ret;
     }
 
-    public int poolString(ExString string){
+    public int poolString(SVMString string){
         int ret;
-        if((ret = checkConst(string,ExObject.STRING))!=-1){
+        if((ret = checkConst(string, SVMObject.STRING))!=-1){
             return ret;
         }else {
             ret = index;

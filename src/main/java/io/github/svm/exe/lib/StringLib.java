@@ -34,10 +34,10 @@ public class StringLib implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject string = vars.get(0);
-            ExObject sp = vars.get(1);
-            return new ExBool(string.getData().contains(sp.getData()));
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject string = vars.get(0);
+            SVMObject sp = vars.get(1);
+            return new SVMBool(string.getData().contains(sp.getData()));
         }
 
         @Override
@@ -52,10 +52,10 @@ public class StringLib implements RuntimeLibrary{
             return 2;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject string = vars.get(0);
-            ExObject sp = vars.get(1);
-            return new ExInt(string.getData().indexOf(sp.getData()));
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject string = vars.get(0);
+            SVMObject sp = vars.get(1);
+            return new SVMInt(string.getData().indexOf(sp.getData()));
         }
         @Override
         public String getName() {
@@ -69,12 +69,12 @@ public class StringLib implements RuntimeLibrary{
             return 2;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject string = vars.get(0);
-            ExObject sp = vars.get(1);
-            ArrayList<ExObject> o = new ArrayList<>();
-            for(String s:string.getData().split(sp.getData())) o.add(new ExString(s));
-            return new ExArray("<STRING>",o);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject string = vars.get(0);
+            SVMObject sp = vars.get(1);
+            ArrayList<SVMObject> o = new ArrayList<>();
+            for(String s:string.getData().split(sp.getData())) o.add(new SVMString(s));
+            return new SVMArray("<STRING>",o);
         }
         @Override
         public String getName() {

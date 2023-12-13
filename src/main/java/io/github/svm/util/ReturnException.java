@@ -1,14 +1,14 @@
 package io.github.svm.util;
 
-import io.github.svm.exe.obj.ExObject;
+import io.github.svm.exe.obj.SVMObject;
 
 public class ReturnException extends RuntimeException{
-    ExObject obj;
-    public ReturnException(ExObject obj){
+    SVMObject obj;
+    public ReturnException(SVMObject obj){
         this.obj = obj;
     }
 
-    public ExObject getObj() {
+    public SVMObject getObj() {
         return obj;
     }
 }

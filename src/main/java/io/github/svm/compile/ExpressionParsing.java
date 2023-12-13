@@ -1,14 +1,14 @@
 package io.github.svm.compile;
 
 import io.github.svm.ConsoleModel;
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.struct.GroupASTNode;
-import io.github.svm.compile.code.struct.InvokeASTNode;
-import io.github.svm.compile.code.struct.MovVarNode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.struct.GroupASTNode;
+import io.github.svm.compile.ir.struct.InvokeASTNode;
+import io.github.svm.compile.ir.struct.MovVarNode;
 import io.github.svm.compile.parser.BaseParser;
 import io.github.svm.compile.parser.InvokeParser;
 import io.github.svm.compile.parser.Parser;
-import io.github.svm.compile.code.opcode.*;
+import io.github.svm.compile.ir.opcode.*;
 import io.github.svm.exe.obj.*;
 import io.github.svm.util.CompileException;
 
@@ -229,14 +229,14 @@ public class ExpressionParsing implements BaseParser {
             if (td.getType() == Token.NAME) bbc.add(new MovVarNode(td.getData()));
             else if (td.getType() == Token.KEY) {
                 switch (td.getData()) {
-                    case "true" -> bbc.add(new PushNode(new ExBool(true)));
-                    case "false" -> bbc.add(new PushNode(new ExBool(false)));
-                    case "null" -> bbc.add(new PushNode(new ExNull()));
+                    case "true" -> bbc.add(new PushNode(new SVMBool(true)));
+                    case "false" -> bbc.add(new PushNode(new SVMBool(false)));
+                    case "null" -> bbc.add(new PushNode(new SVMNull()));
                     default -> throw new CompileException("Illegal keywords.", td, parser.getFilename(), parser);
                 }
-            } else if (td.getType() == Token.INTEGER) bbc.add(new PushNode(new ExInt(Integer.parseInt(td.getData()))));
+            } else if (td.getType() == Token.INTEGER) bbc.add(new PushNode(new SVMInt(Integer.parseInt(td.getData()))));
             else if (td.getType() == Token.DOUBLE)
-                bbc.add(new PushNode(new ExDouble(Double.parseDouble(td.getData()))));
+                bbc.add(new PushNode(new SVMDouble(Double.parseDouble(td.getData()))));
             else if (td.getType() == Token.SEM) {
                 switch (td.getData()) {
                     case "+" -> bbc.add(new AddNode());
@@ -261,7 +261,7 @@ public class ExpressionParsing implements BaseParser {
                     case "%" -> bbc.add(new DivXNode());
                     case "%=" -> bbc.add(new DivXMovNode());
                 }
-            } else if (td.getType() == Token.STRING) bbc.add(new PushNode(new ExString(td.getData())));
+            } else if (td.getType() == Token.STRING) bbc.add(new PushNode(new SVMString(td.getData())));
             else if (td.getType() == Token.EXP) bbc.add(((TokenX) td).getBc());
         }
 

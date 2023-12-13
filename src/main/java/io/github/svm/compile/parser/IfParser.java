@@ -1,9 +1,9 @@
 package io.github.svm.compile.parser;
 
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.struct.decide.ElseIfNode;
-import io.github.svm.compile.code.struct.decide.ElseNode;
-import io.github.svm.compile.code.struct.decide.IfNode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.struct.decide.ElseIfNode;
+import io.github.svm.compile.ir.struct.decide.ElseNode;
+import io.github.svm.compile.ir.struct.decide.IfNode;
 import io.github.svm.compile.Compiler;
 import io.github.svm.util.CompileException;
 

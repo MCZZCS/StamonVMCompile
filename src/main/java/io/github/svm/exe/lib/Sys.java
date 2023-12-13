@@ -38,12 +38,12 @@ public class Sys implements RuntimeLibrary{
             return 1;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) {
-            ExObject obj = vars.get(0);
-            if(obj.getType()==ExObject.ARRAY){
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) {
+            SVMObject obj = vars.get(0);
+            if(obj.getType()== SVMObject.ARRAY){
                 System.out.println(obj);
             }else System.out.println(obj.getData());
-            return new ExNull();
+            return new SVMNull();
         }
         @Override
         public java.lang.String getName() {
@@ -59,15 +59,15 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
-            if(o.getType()!=ExObject.INTEGER)throw new VMRuntimeException("不兼容INT的类型,无法将未知类型输入进sleep函数的参数",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
+            if(o.getType()!= SVMObject.INTEGER)throw new VMRuntimeException("不兼容INT的类型,无法将未知类型输入进sleep函数的参数",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
             try {
                 java.lang.Thread.sleep(Integer.parseInt(o.getData()));
             } catch (InterruptedException e) {
                 throw new VMRuntimeException("[VMERROR-内部错误]:"+e.getLocalizedMessage(),executor.getThread());
             }
-            return new ExNull();
+            return new SVMNull();
         }
 
         @Override
@@ -84,12 +84,12 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
-            if(o.getType()!=ExObject.INTEGER)throw new VMRuntimeException("不兼容INT的类型,无法将未知类型输入进stop函数的参数",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
+            if(o.getType()!= SVMObject.INTEGER)throw new VMRuntimeException("不兼容INT的类型,无法将未知类型输入进stop函数的参数",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
             RuntimeShutdownHook.exit_code = Integer.parseInt(o.getData());
             System.exit(RuntimeShutdownHook.exit_code);
-            return new ExNull();
+            return new SVMNull();
         }
 
         @Override
@@ -105,10 +105,10 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) {
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) {
             Runtime runtime = Runtime.getRuntime();
             long mb = runtime.totalMemory() - runtime.freeMemory();
-            return new ExDouble(mb(mb));
+            return new SVMDouble(mb(mb));
         }
 
         private static double mb (long s) {
@@ -129,12 +129,12 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) {
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) {
             executor.getThread().setStatus(ThreadManager.Status.WAIT);
             Scanner s = new Scanner(System.in);
             String data = s.nextLine();
             executor.getThread().setStatus(ThreadManager.Status.RUNNING);
-            return new ExString(data);
+            return new SVMString(data);
         }
 
         @Override
@@ -151,8 +151,8 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject name = vars.get(0),func = vars.get(1);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject name = vars.get(0),func = vars.get(1);
             ThreadTask task = new ThreadTask(name.getData());
             Function function = null;
             for(Function f:ThreadManager.getFunctions()) {
@@ -164,7 +164,7 @@ public class Sys implements RuntimeLibrary{
             task.setFunction(function);
             task.start();
             ThreadManager.addThread(task);
-            return new ExString(task.getName());
+            return new SVMString(task.getName());
         }
 
         @Override
@@ -181,17 +181,17 @@ public class Sys implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject object = vars.get(0);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject object = vars.get(0);
 
-            if(object.getType() == ExObject.ARRAY) throw new VMRuntimeException("Illegal argument: Cannot pass in a parameter of type ARRAY.",executor.getThread());
+            if(object.getType() == SVMObject.ARRAY) throw new VMRuntimeException("Illegal argument: Cannot pass in a parameter of type ARRAY.",executor.getThread());
 
             return switch (object.getData()) {
-                case "os" -> new ExString(System.getProperty("os.name"));
-                case "version" -> new ExString(Main.version);
-                case "svm" -> new ExBool(ConsoleModel.isStamonVM);
-                case "edition" -> new ExString(Main.name);
-                default -> new ExNull();
+                case "os" -> new SVMString(System.getProperty("os.name"));
+                case "version" -> new SVMString(Main.version);
+                case "svm" -> new SVMBool(ConsoleModel.isStamonVM);
+                case "edition" -> new SVMString(Main.name);
+                default -> new SVMNull();
             };
         }
 

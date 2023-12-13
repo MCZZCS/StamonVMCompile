@@ -1,7 +1,7 @@
 package io.github.svm.compile.stamon.table;
 
-import io.github.svm.exe.obj.ExNull;
-import io.github.svm.exe.obj.ExObject;
+import io.github.svm.exe.obj.SVMNull;
+import io.github.svm.exe.obj.SVMObject;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,8 +20,8 @@ public class ConstNull extends Const{
     }
 
     @Override
-    public ExObject getObject() {
-        return new ExNull();
+    public SVMObject getObject() {
+        return new SVMNull();
     }
 
     @Override

@@ -2,10 +2,10 @@ package io.github.svm.compile.parser;
 
 import io.github.svm.ConsoleModel;
 import io.github.svm.compile.Token;
-import io.github.svm.compile.code.ASTNode;
-import io.github.svm.compile.code.struct.ExceptionASTNode;
-import io.github.svm.compile.code.struct.GroupASTNode;
-import io.github.svm.compile.code.struct.LoadVarNode;
+import io.github.svm.compile.ir.ASTNode;
+import io.github.svm.compile.ir.struct.ExceptionASTNode;
+import io.github.svm.compile.ir.struct.GroupASTNode;
+import io.github.svm.compile.ir.struct.LoadVarNode;
 import io.github.svm.util.CompileException;
 import io.github.svm.util.VMRuntimeException;
 import io.github.svm.compile.Compiler;

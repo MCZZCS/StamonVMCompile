@@ -1,10 +1,10 @@
 package io.github.svm.exe.lib.util;
 
 import io.github.svm.exe.core.Executor;
-import io.github.svm.exe.obj.ExArray;
-import io.github.svm.exe.obj.ExObject;
-import io.github.svm.exe.obj.ExValue;
-import io.github.svm.exe.obj.ExVarName;
+import io.github.svm.exe.obj.SVMArray;
+import io.github.svm.exe.obj.SVMObject;
+import io.github.svm.exe.obj.SVMValue;
+import io.github.svm.exe.obj.SVMVarName;
 import io.github.svm.exe.thread.ThreadManager;
 import io.github.svm.util.VMRuntimeException;
 
@@ -12,20 +12,20 @@ import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 
 public class ObjectSize {
-    public static String getSize(ExObject obj, Executor executor) throws VMRuntimeException {
+    public static String getSize(SVMObject obj, Executor executor) throws VMRuntimeException {
         return getSize(sizeof(obj,executor));
     }
-    private static long sizeof(ExObject object,Executor executor) throws VMRuntimeException {
+    private static long sizeof(SVMObject object, Executor executor) throws VMRuntimeException {
         long size = 0;
-        if(object instanceof ExVarName){
-            ExValue buf = null;
-            for(ExValue v: ThreadManager.getValues()){
+        if(object instanceof SVMVarName){
+            SVMValue buf = null;
+            for(SVMValue v: ThreadManager.getValues()){
                 if(v.getData().equals(object.getData())){
                     buf = v;
                     break;
                 }
             }
-            for(ExValue v:executor.getThread().getCallStackPeek().getValues()){
+            for(SVMValue v:executor.getThread().getCallStackPeek().getValues()){
                 if(v.getData().equals(object.getData())){
                     buf = v;
                     break;
@@ -33,17 +33,17 @@ public class ObjectSize {
             }
             if(buf == null)throw new VMRuntimeException("找不到指定变量:"+object.getData(),executor.getThread());
 
-            if(buf.getType()==ExObject.ARRAY){
+            if(buf.getType()== SVMObject.ARRAY){
                 object = buf;
             }else object = buf.getVar();
         }
         switch (object.getType()){
-            case ExObject.INTEGER, ExObject.BOOLEAN -> size = 4;
-            case ExObject.DOUBLE -> size = 8;
-            case ExObject.NULL -> size = 0;
-            case ExObject.STRING -> size = object.getData().getBytes(StandardCharsets.UTF_8).length;
-            case ExObject.ARRAY -> {
-                for(ExObject object1:((ExArray)object).getObjs()){
+            case SVMObject.INTEGER, SVMObject.BOOLEAN -> size = 4;
+            case SVMObject.DOUBLE -> size = 8;
+            case SVMObject.NULL -> size = 0;
+            case SVMObject.STRING -> size = object.getData().getBytes(StandardCharsets.UTF_8).length;
+            case SVMObject.ARRAY -> {
+                for(SVMObject object1:((SVMArray)object).getObjs()){
                     size += sizeof(object1,executor);
                 }
             }
@@ -69,10 +69,10 @@ public class ObjectSize {
         return resultSize;
     }
 
-    public static ExObject getValue(ExObject o){
-        if(o.getType()==ExObject.VALUE){
-            ExObject v = ((ExValue)o).getVar();
-            if(v.getType()==ExObject.VALUE) return getValue(v);
+    public static SVMObject getValue(SVMObject o){
+        if(o.getType()== SVMObject.VALUE){
+            SVMObject v = ((SVMValue)o).getVar();
+            if(v.getType()== SVMObject.VALUE) return getValue(v);
             else return v;
         }else return o;
     }

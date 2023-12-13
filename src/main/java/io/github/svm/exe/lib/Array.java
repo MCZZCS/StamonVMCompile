@@ -33,10 +33,10 @@ public class Array implements RuntimeLibrary{
         }
 
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
-            if(o.getType()!=ExObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            return new ExString(o.toString());
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
+            if(o.getType()!= SVMObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            return new SVMString(o.toString());
         }
 
         @Override
@@ -51,14 +51,14 @@ public class Array implements RuntimeLibrary{
             return 2;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
-            ExObject index = vars.get(1);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
+            SVMObject index = vars.get(1);
 
 
-            if(o.getType()!=ExObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            if(index.getType()!=ExObject.INTEGER)throw new VMRuntimeException("数组索引必须为整数类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            ExArray a = (ExArray) o;
+            if(o.getType()!= SVMObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            if(index.getType()!= SVMObject.INTEGER)throw new VMRuntimeException("数组索引必须为整数类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            SVMArray a = (SVMArray) o;
 
             int i = Integer.parseInt(index.getData());
             if(i >= a.length())throw new VMRuntimeException("数组索引越界,原数组长度为(index:"+a.length()+"),索引为(index:"+i+")",executor.getThread(), VMRuntimeException.EnumVMException.INDEX_OUT_OF_BOUNDS_EXCEPTION);
@@ -76,18 +76,18 @@ public class Array implements RuntimeLibrary{
             return 3;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
-            ExObject set = vars.get(1);
-            ExObject index = vars.get(2);
-            if(o.getType()!=ExObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            if(index.getType()!=ExObject.INTEGER)throw new VMRuntimeException("数组索引必须为整数类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            ExArray a = (ExArray) o;
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
+            SVMObject set = vars.get(1);
+            SVMObject index = vars.get(2);
+            if(o.getType()!= SVMObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            if(index.getType()!= SVMObject.INTEGER)throw new VMRuntimeException("数组索引必须为整数类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            SVMArray a = (SVMArray) o;
 
             int i = Integer.parseInt(index.getData());
             if(i >= a.length())throw new VMRuntimeException("数组索引越界,原数组长度为(index:"+a.length()+"),索引为(index:"+i+")",executor.getThread(), VMRuntimeException.EnumVMException.INDEX_OUT_OF_BOUNDS_EXCEPTION);
             a.setObj(i,set);
-            return new ExNull();
+            return new SVMNull();
         }
         @Override
         public String getName() {
@@ -100,12 +100,12 @@ public class Array implements RuntimeLibrary{
             return 1;
         }
         @Override
-        public ExObject invoke(ArrayList<ExObject> vars, Executor executor) throws VMRuntimeException {
-            ExObject o = vars.get(0);
+        public SVMObject invoke(ArrayList<SVMObject> vars, Executor executor) throws VMRuntimeException {
+            SVMObject o = vars.get(0);
 
-            if(o.getType()!=ExObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
-            ExArray a = (ExArray) o;
-            return new ExInt(a.length());
+            if(o.getType()!= SVMObject.ARRAY)throw new VMRuntimeException("传入参数类型必须为数组类型",executor.getThread(), VMRuntimeException.EnumVMException.ILLEGAL_ACCESS_EXCEPTION);
+            SVMArray a = (SVMArray) o;
+            return new SVMInt(a.length());
         }
         @Override
         public String getName() {

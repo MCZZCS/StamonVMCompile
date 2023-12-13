@@ -6,7 +6,7 @@ public class Debug {
         //args = new String[]{"-filename","debug.exf"};
         //args = new String[]{"-language","en-US","-filename","debug.exf"};
         //args = new String[]{"-debug","-java", "-f", "debug.exf"};
-        args = new String[]{"-debug","-c", "-f", "debug.exf"};
+        args = new String[]{"-debug","-r", "-f", "debug.stc"};
         //args = new String[]{"-h"};//,"-l","zh-CN.lang"};
         Main.main(args);
     }

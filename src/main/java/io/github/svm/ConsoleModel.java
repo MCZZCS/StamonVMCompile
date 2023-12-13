@@ -15,9 +15,9 @@ import java.util.List;
 public class ConsoleModel {
     static ArrayList<String> filename = new ArrayList<>();
     static ScriptOutputStream output = new ScriptOutputStream();
-    public static boolean isStamonVM = false, isConsur = false, debug = false;
+    public static boolean isStamonVM = true, isConsur = false, debug = false;
     public static String language = "en-US";
-    public static void command(String[] args) throws Exception{
+    public static void command(String[] args){
 
         try {
 
@@ -31,7 +31,7 @@ public class ConsoleModel {
                             .ofType(String.class)
                             .describedAs("Set console language");
                     acceptsAll(asList("h","?","help"),"Print help info about openex commands.");
-                    acceptsAll(asList("c","compile"),"Enable StamonVM compilation mode.");
+                    acceptsAll(asList("r","runtime"),"Turn on the StamonVM simulation run mode.");
                     acceptsAll(asList("v","version"),"Print version info.");
                     acceptsAll(asList("u","concur"),"Enable concurrent compilation mode.");
                     acceptsAll(asList("d","debug"),"Enable debug mode.");
@@ -59,7 +59,7 @@ public class ConsoleModel {
                 return;
             }
 
-            if(set.has("compile")) isStamonVM = true;
+            if(set.has("runtime")) isStamonVM = false;
             if(set.has("consur")) isConsur = true;
             if(set.has("debug")) debug = true;
 

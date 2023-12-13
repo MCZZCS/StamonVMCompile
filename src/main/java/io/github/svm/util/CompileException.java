@@ -44,9 +44,8 @@ public class CompileException extends RuntimeException{
                     "\n\tEdition: " + Main.name +
                     "\n\tVersion: " + Main.version);
         }
-        int line = token.getLine();
-        s.println("Location: ("+filename+": "+line+")");
         if(parser == null){
+            s.println("Location: ("+filename+": unknown)");
             s.println("\t<no_such_statement>");
             if(ConsoleModel.debug) {
                 for (StackTraceElement traceElement : trace)
@@ -54,6 +53,9 @@ public class CompileException extends RuntimeException{
             }
             return;
         }
+
+        int line = token.getLine();
+        s.println("Location: ("+filename+": "+line+")");
 
         int index = 0,buf = 0;
 
@@ -77,7 +79,7 @@ public class CompileException extends RuntimeException{
         sbb.append(" ".repeat(Math.max(0,buf)));
 
         if(!((buf = token.getData().length()) < 3)){
-            sbb.append(" ".repeat(Math.max(0,buf)));
+            sbb.append(" ".repeat(buf));
         }
 
         sbb.append('^');

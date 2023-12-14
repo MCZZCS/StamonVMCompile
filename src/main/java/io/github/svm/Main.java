@@ -12,8 +12,7 @@ public class Main {
     static {
         s.add("function");
         s.add("value");
-        s.add("local");
-        s.add("global");
+        s.add("class");
         s.add("if");
         s.add("else");
         s.add("while");

@@ -60,22 +60,24 @@ public class CompileException extends RuntimeException{
         int index = 0,buf = 0;
 
         StringBuilder sb = new StringBuilder();
-        sb.append('\t').append(line).append("| ");
+        sb.append("    ").append(line).append("| ");
 
         for(Token token1:parser.getTds()){
             if(token1.getLine() == line){
                 sb.append(token1.getData()).append(' ');
+                index += token1.getData().length() + 1;
                 if(token.equals(token1)){
                     buf = index;
                 }
-                index += token1.getData().length() + 1;
+
             }
         }
         s.println(sb);
 
 
         StringBuilder sbb = new StringBuilder();
-        sbb.append('\t');
+        sbb.append("    ");
+
         sbb.append(" ".repeat(Math.max(0,buf)));
 
         if(!((buf = token.getData().length()) < 3)){

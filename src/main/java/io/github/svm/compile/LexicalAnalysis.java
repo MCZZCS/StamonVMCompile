@@ -10,7 +10,6 @@ public final class LexicalAnalysis {
     int file_line, index;
     Character buf;
     String file_name;
-    boolean isl = false;
 
     public LexicalAnalysis(ArrayList<String> data, String file_name) {
         StringBuilder sb = new StringBuilder();
@@ -50,7 +49,7 @@ public final class LexicalAnalysis {
     }
 
     private boolean isSEM(int c) {
-        return (c == ':') || (c == '!') || (c == '.') || (c == ',') || (c == '%') || (c == '&') || (c == '|') || (c == '$');
+        return (c == ':') || (c == '!') || (c == '.') || (c == ',') || (c == '%') || (c == '~') || (c == '^') || (c == '$');
     }
 
     private Integer getChar() {
@@ -162,10 +161,43 @@ public final class LexicalAnalysis {
             }
             buf = (char) c;
             return new Token(Token.SEM, sb.toString(), file_line);
-        } else if (c == '>' || c == '<') {
+        }else if(c == '&'){
+            sb.append((char) c);
+            c = getChar();
+            if (c == '&') {
+                sb.append((char) c);
+                return new Token(Token.SEM, sb.toString(), file_line);
+            }
+            buf = (char) c;
+            return new Token(Token.SEM, sb.toString(), file_line);
+        }else if(c == '|'){
+            sb.append((char) c);
+            c = getChar();
+            if (c == '|') {
+                sb.append((char) c);
+                return new Token(Token.SEM, sb.toString(), file_line);
+            }
+            buf = (char) c;
+            return new Token(Token.SEM, sb.toString(), file_line);
+        }else if( c == '<'){
             sb.append((char) c);
             c = getChar();
             if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.SEM, sb.toString(), file_line);
+            }else if(c == '<'){
+                sb.append((char) c);
+                return new Token(Token.SEM, sb.toString(), file_line);
+            }
+            buf = (char) c;
+            return new Token(Token.SEM, sb.toString(), file_line);
+        } else if (c == '>') {
+            sb.append((char) c);
+            c = getChar();
+            if (c == '=') {
+                sb.append((char) c);
+                return new Token(Token.SEM, sb.toString(), file_line);
+            }else if(c == '>'){
                 sb.append((char) c);
                 return new Token(Token.SEM, sb.toString(), file_line);
             }

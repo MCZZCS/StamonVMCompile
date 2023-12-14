@@ -194,13 +194,18 @@ public class ExpressionParsing implements BaseParser {
         if (op.getType() != Token.SEM) return -1;
 
         return switch (op.getData()) {
-            case "!", "++", "--" -> 7;
-            case "*", "/", "*=", "/=", "%", "%=" -> 6;
-            case "+", "-", "+=", "-=" -> 5;
-            case ">", ">=", "<=", "<" -> 4;
-            case "==" -> 3;
-            case "&", "|" -> 2;
-            case "=" -> 1;
+            case "!", "++", "--","~" -> 12;
+            case "*", "/", "%" -> 11;
+            case "+", "-" -> 10;
+            case ">>","<<" -> 9;
+            case ">", ">=", "<=", "<" -> 8;
+            case "==","!=" -> 7;
+            case "&" -> 6;
+            case "^" -> 5;
+            case "|" -> 4;
+            case "&&" -> 3;
+            case "||" -> 2;
+            case "=", "/=", "%=", "*=", "+=", "-=" -> 1;
             case "," -> 0;
             default -> -1;
         };

@@ -65,8 +65,8 @@ public class OptimizationExecutor {
                     case ">" -> big(token);
                     case "<" -> less(token);
                     case "!" -> not(token);
-                    case "&" -> and(token);
-                    case "|" -> or(token);
+                    case "&&" -> and(token);
+                    case "||" -> or(token);
                     case "+=", "-=", "%=", "=" ->
                             throw new CompileException("Illegal combination of expressions.", token, parser.getFilename(), parser);
                     case "%" -> divx(token);

@@ -53,7 +53,7 @@ public class Parser {
                     } while (buf.getType() != Token.END);
                     return new IncludeParser(tds);
                 }
-                case "value" -> {
+                case "def" -> {
                     List<Token> tds = new LinkedList<>();
                     do {
                         buf = getToken();
@@ -129,7 +129,7 @@ public class Parser {
 
                     return new TryParser(new SubParser(try_group,this,c,false,false,null).getParsers() ,catch_expression,new SubParser(catch_group,this,c,false,false,null).getParsers());
                 }
-                case "function" -> {
+                case "func" -> {
                     List<Token> vars = new LinkedList<>(), groups = new LinkedList<>();
                     Token t = getToken();
                     if (!(t.getType() == Token.NAME))
@@ -480,7 +480,7 @@ public class Parser {
             if (buf == null) return null;
             if (buf.getType() == Token.KEY) {
                 switch (buf.getData()) {
-                    case "value" -> {
+                    case "def" -> {
                         List<Token> tds = new LinkedList<>();
                         do {
                             buf = getToken();

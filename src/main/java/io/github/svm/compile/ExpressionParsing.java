@@ -258,8 +258,12 @@ public class ExpressionParsing implements BaseParser {
                     case ">" -> bbc.add(new BigNode());
                     case "<" -> bbc.add(new LessNode());
                     case "!" -> bbc.add(new NotNode());
-                    case "&" -> bbc.add(new AndNode());
-                    case "|" -> bbc.add(new OrNode());
+                    case ">>" -> bbc.add(new BitRightNode());
+                    case "<<" -> bbc.add(new BitLeftNode());
+                    case "&" -> bbc.add(new BitAndNode());
+                    case "|" -> bbc.add(new BitOrNode());
+                    case "&&" -> bbc.add(new AndNode());
+                    case "||" -> bbc.add(new OrNode());
                     case "=" -> bbc.add(new MovNode());
                     case "+=" -> bbc.add(new AddMovNode());
                     case "-=" -> bbc.add(new SubMovNode());

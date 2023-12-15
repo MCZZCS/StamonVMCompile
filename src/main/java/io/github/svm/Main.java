@@ -10,9 +10,8 @@ public class Main {
 
     static HashSet<String> s = new HashSet<>();
     static {
-        s.add("function");
-        s.add("value");
-        s.add("class");
+        s.add("func");
+        s.add("def");
         s.add("if");
         s.add("else");
         s.add("while");
@@ -27,6 +26,7 @@ public class Main {
         s.add("for");
         s.add("continue");
         s.add("try");
+        s.add("native");
         s.add("catch");
         s.add("throw");
     }

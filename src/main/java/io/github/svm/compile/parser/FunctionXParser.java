@@ -46,7 +46,7 @@ public class FunctionXParser {
         buf = getToken();
         if (buf.getType() == Token.KEY) {
             switch (buf.getData()) {
-                case "value" -> {
+                case "def" -> {
                     ArrayList<Token> tds = new ArrayList<>();
                     do {
                         buf = getToken();
